@@ -1,0 +1,42 @@
+1.Create a new process by invoking the appropriate system call. Get the process identifier of the
+currently running process and its respective parent using system calls and display the same
+using a C program. 
+
+
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+int main() {
+    pid_t pid;
+
+    // Create a new process
+    pid = fork();
+
+    if (pid < 0) {
+        fprintf(stderr, "Fork failed\n");
+        return 1;
+    } else if (pid == 0) {
+        // Child process
+        printf("Child process:\n");
+        printf("PID: %d\n", getpid());
+        printf("Parent PID: %d\n", getppid());
+    } else {
+        // Parent process
+        printf("Parent process:\n");
+        printf("PID: %d\n", getpid());
+        printf("Parent PID: %d\n", getppid());
+    }
+
+    return 0;
+}
+
+
+OUTPUT
+Parent process:
+PID: 1234
+Parent PID: 5678
+Child process:
+PID: 5679
+Parent PID: 1234
